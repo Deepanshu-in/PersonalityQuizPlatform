@@ -7,6 +7,8 @@ import AboutUs from "./pages/AboutUs";
 import Hero from "./components/Hero/Hero";
 import { useSelector } from "react-redux";
 import "./App.css";
+import SanaAI from "./components/QuizComponents/SanaAI";
+import QuizComponent from "./components/QuizComponents/QuizComponent";
 
 function App() {
   const userId = useSelector((state) => state.auth);
@@ -29,8 +31,11 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/iqTest" element={<QuizComponent />} />
+          <Route path="/eqTest" element={<QuizComponent />} />
           <Route path={`/result/${userId}`} element={<Result />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/sana" element={<SanaAI />} />
         </Routes>
       </div>
     </BrowserRouter>

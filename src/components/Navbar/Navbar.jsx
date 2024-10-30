@@ -129,7 +129,7 @@ const Navbar = () => {
                 {programsList.map((item) => {
                   return (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <a href={item.link}>{item.name}</a>
                     </li>
                   );
                 })}

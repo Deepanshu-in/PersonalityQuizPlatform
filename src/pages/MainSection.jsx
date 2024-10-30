@@ -37,14 +37,8 @@ const MainSection = () => {
         if (Testvisibility) setTestVisibility(!Testvisibility);
         if (visibility) setVisibility(!visibility);
       }}
-      className="relative mt-[-53px]"
+      className="relative mt-[-53px] py-12 pl-12"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-50"
-        style={{
-          backgroundImage: `url(${paperCrushed})`,
-        }}
-      />
       <div className="relative flex flex-row justify-center gap-4 mx-6 min-h-[600px]">
         <div className="flex flex-col gap-12">
           <h1 className="font-capital font-extrabold text-[42px] mt-[40px]">
@@ -85,7 +79,7 @@ const MainSection = () => {
           </div>
         </div>
         <div>
-          <Lottie options={defaultOptions} height={500} width={700} />
+          <Lottie options={defaultOptions} height={500} width={600} />
         </div>
       </div>
       <Lottie options={dropAnimationOptions} height={100} width={100} />

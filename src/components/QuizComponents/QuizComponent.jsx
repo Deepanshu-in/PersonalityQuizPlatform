@@ -1,6 +1,9 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { incrementCategoryMark, isIqTest } from "../../features/IqMarksSlice";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   incrementRaisecMark,
   isRaisecTest,
@@ -13,62 +16,58 @@ import {
   doc,
   getDocs,
 } from "firebase/firestore";
-const QuizComponent = ({ testType }) => {
+const QuizComponent = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [testType, setTestType] = useState(testType);
+  const [test, setTest] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [QuestionsData, setQuestionsData] = useState([]);
   const [isSub, setIsSub] = useState(false);
   const firestore = getFirestore(app);
+  const user = useSelector((state) => state.auth);
 
-  const btnHandler = async (type) => {
-    setTestType(type);
-    setCurrentIndex(0);
-    setSelectedOption(null);
-    if (type === "iqQuestionsData") {
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const type = searchParams.get("type");
+    const fetchQuestions = async () => {
+      setTest(type);
+      setCurrentIndex(0);
+      setSelectedOption(null);
       setLoading(true);
-      const collectionRef = collection(
-        firestore,
-        "questions/Tgbu1GYG9nsZ7a71lONU/iqQuestions/7ak13hbI5Wz8IZn37BOO/set1"
-      );
-
-      try {
-        const iqQuestionsFromFirebase = await getDocs(collectionRef);
-        const dataA = [];
-        iqQuestionsFromFirebase.forEach((doc) => {
-          dataA.push(doc.data());
-        });
-        setQuestionsData(dataA);
-        if (iqQuestionsFromFirebase.empty) {
-          console.log("No documents found in the collection.");
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching documents:", error);
+      let collectionRef;
+      if (type === "raisecQuestions") {
+        collectionRef = collection(
+          firestore,
+          "questions/Tgbu1GYG9nsZ7a71lONU/raisecQuestions"
+        );
+      } else {
+        collectionRef = collection(
+          firestore,
+          "questions/Tgbu1GYG9nsZ7a71lONU/iqQuestions/7ak13hbI5Wz8IZn37BOO/set1"
+        );
       }
-    } else {
-      setLoading(true);
-      const collectionRef = collection(
-        firestore,
-        "questions/Tgbu1GYG9nsZ7a71lONU/raisecQuestions"
-      );
 
       try {
-        const raisecQuestionsFromFirebase = await getDocs(collectionRef);
+        const questionsFromFirebase = await getDocs(collectionRef);
         const dataArray = [];
-        raisecQuestionsFromFirebase.forEach((doc) => {
+        questionsFromFirebase.forEach((doc) => {
           dataArray.push(doc.data());
         });
         setQuestionsData(dataArray);
-        if (raisecQuestionsFromFirebase.empty) {
+
+        if (questionsFromFirebase.empty) {
           console.log("No documents found in the collection.");
         }
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching documents:", error);
+      } finally {
+        setLoading(false);
       }
-    }
-  };
+    };
+    fetchQuestions();
+  }, []);
+
   const nextQuestion = () => {
     setCurrentIndex((prevIndex) =>
       Math.min(prevIndex + 1, QuestionsData.length - 1)
@@ -97,14 +96,16 @@ const QuizComponent = ({ testType }) => {
   const onSubmit = () => {
     setIsSub(true);
     console.log(QuestionsData);
+
     QuestionsData.forEach((item) => {
-      if (btnText === "iqQuestionsData") {
+      // Replace btnText with test
+      if (test === "iqQuestionsData") {
         if (item.selected === item.answer) {
           dispatch(incrementCategoryMark({ category: item.type }));
         }
         dispatch(isIqTest(true));
         dispatch(isRaisecTest(false));
-      } else if (btnText === "raisecQuestionsData") {
+      } else if (test === "raisecQuestionsData") {
         if (item.selected === item.answer) {
           dispatch(incrementRaisecMark({ category: item.type }));
         }
@@ -115,8 +116,7 @@ const QuizComponent = ({ testType }) => {
   };
   return (
     <div>
-      {" "}
-      {testType ? (
+      {test ? (
         user ? (
           loading ? (
             <div>loading...</div>
