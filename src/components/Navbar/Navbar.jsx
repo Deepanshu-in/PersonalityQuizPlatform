@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import dropdown from "../Assets/dropdown.svg";
 import programsList from "../Assets/data";
@@ -7,7 +7,6 @@ import { isUser } from "../../features/authSlice";
 import userAccPhoto from "../Assets/icons8-user-96.png";
 import { updateStudentInfo } from "../../features/studentInfoSlice";
 import logo from "./../Assets/logoQuiz.svg";
-import { BiMenu } from "react-icons/bi";
 
 //for login and signup
 import {
@@ -22,7 +21,6 @@ import { app } from "/src/firebase/firebase.js";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const isSignedIn = useSelector((state) => state.auth);
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   const [active, setActive] = useState(null);

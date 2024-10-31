@@ -37,7 +37,8 @@ export default function Result() {
 
     e.target.reset();
     setisEntered(true);
-
+    console.log("Iqmarks", categoryMarks);
+    console.log("Eqmarks", raisecMarks);
     //if new user signed up then sending the data to firebase users
     if (isNewUser) {
       await addDoc(collection(firestore, "users"), {
@@ -79,7 +80,7 @@ export default function Result() {
     },
   ];
 
-  console.log(dataMarks);
+  // console.log(dataMarks);
 
   return (
     <div className="">
@@ -96,8 +97,8 @@ export default function Result() {
                 .sort(([, valueA], [, valueB]) => valueB - valueA)
                 .slice(0, 3)
                 .map(([key, value], index) => (
-                  <div className="flex flex-col items-center">
-                    <div key={index}>
+                  <div className="flex flex-col items-center" key={index}>
+                    <div>
                       <p>{`${key}: ${value}`}</p>
                     </div>
                   </div>

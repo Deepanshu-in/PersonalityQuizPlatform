@@ -17,7 +17,7 @@
   border-radius: 5px;
   width: 70%;
   position: relative;
-  transition: all 5s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .popup h2 {
@@ -47,5 +47,26 @@
 @media screen and (max-width: 700px) {
   .popup {
     width: 70%;
+  }
+}
+@media screen and (max-width: 480px), (max-height: 800px) {
+  .popup {
+    width: 50%; /* Adjust width for small devices */
+    margin: 30% auto; /* Adjust margin for small screens */
+    padding: 50px; /* Reduce padding for smaller devices */
+  }
+
+  .popup h2 {
+    font-size: 18px; /* Smaller font for heading */
+  }
+
+  .popup .close {
+    font-size: 24px; /* Reduce close button size */
+    top: 15px; /* Adjust position of close button */
+    right: 20px;
+  }
+
+  .popup .content {
+    max-height: 40%; /* Increase content height if needed */
   }
 }

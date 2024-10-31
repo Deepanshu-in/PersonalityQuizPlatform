@@ -7,7 +7,7 @@ import { useState } from "react";
 import CustomPopup from "../features/CustomPopup";
 import MarkingPdfViewer from "./MarkingPdfViewer";
 import TestSelectionPopup from "./TestSelectionPopup";
-import paperCrushed from "../assets/background-crumpled-paper-sheet.jpg";
+import Quiz from "../components/Hero/Quiz";
 
 const MainSection = () => {
   const defaultOptions = {
