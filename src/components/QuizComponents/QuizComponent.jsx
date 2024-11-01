@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { incrementCategoryMark, isIqTest } from "../../features/IqMarksSlice";
+import {
+  incrementCategoryMark,
+  isIqTest,
+  totalMarksIq,
+} from "../../features/IqMarksSlice";
 import Lottie from "react-lottie";
 import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +13,7 @@ import loadingAnimation from "../../assets/loadingAnimation.json";
 import {
   incrementRaisecMark,
   isRaisecTest,
+  totalMarksEq,
 } from "../../features/raisecMarksSlice";
 import { app } from "../../firebase/firebase";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
@@ -131,12 +136,14 @@ const QuizComponent = () => {
       if (test === "raisecQuestions") {
         if (item.options[item.selected] === item.answer) {
           dispatch(incrementRaisecMark({ category: item.type }));
+          dispatch(totalMarksEq());
         }
         dispatch(isRaisecTest(true));
         dispatch(isIqTest(false));
       } else {
         if (item.options[item.selected] === item.answer) {
           dispatch(incrementCategoryMark({ category: item.type }));
+          dispatch(totalMarksIq());
         }
         dispatch(isIqTest(true));
         dispatch(isRaisecTest(false));
@@ -281,6 +288,7 @@ const QuizComponent = () => {
           )
         ) : (
           <div className="flex flex-col justify-center items-center">
+            <h1>Login to Continue</h1>
             <Lottie options={dropAnimationOptions} height={700} width={700} />
           </div>
         )

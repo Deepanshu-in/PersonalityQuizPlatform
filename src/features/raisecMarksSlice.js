@@ -9,6 +9,7 @@ export const raisecMarksSlice = createSlice({
     Enterprising: 0,
     Conventional: 0,
     Artistic: 0,
+    total: 0,
     isRais: false,
   },
 
@@ -19,9 +20,13 @@ export const raisecMarksSlice = createSlice({
     isRaisecTest: (state, action) => {
       state.isRais = action.payload;
     },
+    totalMarksEq: (state) => {
+      state.total += 1;
+    },
   },
 });
 
-export const { incrementRaisecMark, isRaisecTest } = raisecMarksSlice.actions;
+export const { incrementRaisecMark, isRaisecTest, totalMarksEq } =
+  raisecMarksSlice.actions;
 
 export default raisecMarksSlice.reducer;

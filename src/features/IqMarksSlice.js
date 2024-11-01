@@ -10,6 +10,7 @@ export const categoryMarksSlice = createSlice({
     DecisionMaking: 0,
     OrganizationalSkills: 0,
     DataInterpretation: 0,
+    total: 0,
     isIq: false,
   },
   reducers: {
@@ -20,9 +21,13 @@ export const categoryMarksSlice = createSlice({
     isIqTest: (state, action) => {
       state.isIq = action.payload;
     },
+    totalMarksIq: (state) => {
+      state.total += 1;
+    },
   },
 });
 
-export const { incrementCategoryMark, isIqTest } = categoryMarksSlice.actions;
+export const { incrementCategoryMark, isIqTest, totalMarksIq } =
+  categoryMarksSlice.actions;
 
 export default categoryMarksSlice.reducer;

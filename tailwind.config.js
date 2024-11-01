@@ -5,12 +5,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: "#0067FF",
+        primaryColor: "#6a3da5",
         yellowColor: "#FEB60D",
         purpleColor: "#9771FF",
         irisBlueColor: "#01B5C5",
         headingColor: "#181A1E",
-        textColor: "#4E545F",
+        textColor: "#5d2057",
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
