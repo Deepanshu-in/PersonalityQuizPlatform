@@ -11,17 +11,6 @@ import QuizComponent from "./components/QuizComponents/QuizComponent";
 
 function App() {
   const userId = useSelector((state) => state.auth);
-
-  // const isIq = useSelector((state) => state.categoryMarks);
-  // const isRais = useSelector((state) => state.raisecMarks);
-
-  // const [isTestSubmitted, setIsTestSubmitted] = useState(false);
-
-  //to prevent the user to directly jump to /result if test is not given
-  // useEffect(() => {
-  //   if (isIq.isIq || isRais.isRais) setIsTestSubmitted(true);
-  // }, [isIq, isRais]);
-
   return (
     <BrowserRouter>
       <div>
